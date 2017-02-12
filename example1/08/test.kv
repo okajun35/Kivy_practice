@@ -1,0 +1,21 @@
+BoxLayout:
+
+    Label:        
+        text: "Good Morning"
+        color: 1,0,1,1
+        size_hint_x: 0.5
+    Label:
+        text: "Hello"
+        color: 0,1,0,1 # rgba
+        size_hint_x: 1
+        
+        canvas.before:
+            Color:
+                rgba: 0, 1, 1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+    Label:
+        text: "Good Evening"
+        color: 0,0,1,1 # rgba
+        size_hint_x: 0.5

@@ -1,0 +1,36 @@
+#-*- coding: utf-8 -*-
+
+
+TextWidget: # ルートに追加
+
+<TextWidget>:
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.size
+        
+        # ラベル
+        Label:
+            size_hint_y: 0.7
+            id: label1
+            font_size: 68
+            text: root.text
+
+        BoxLayout:
+            size_hint_y: 0.3
+            Button:
+                id: button1
+                text: "morning"
+                font_size: 68
+                on_press: root.buttonClicked()  # ボタンをクリックした時
+
+            Button:
+                id: button2
+                text: "day"
+                font_size: 68
+                on_press: root.buttonClicked2()  # ボタンをクリックした時
+
+            Button:
+                id: button3
+                text: "night"
+                font_size: 68
+                on_press: root.buttonClicked3()  # ボタンをクリックした時

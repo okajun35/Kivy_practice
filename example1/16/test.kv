@@ -1,0 +1,41 @@
+
+TextWidget:
+
+
+<MyButton@Button>:
+    font_size: 68
+
+<TextWidget>:
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.size
+
+        # ƒ‰ƒxƒ‹
+        Label:
+            size_hint_y: 0.7
+            id: label1
+            font_size: 68
+            text: root.text
+            color: root.color
+            
+        BoxLayout:
+            size_hint_y: 0.3
+            padding: 20,30,20, 10
+            MyButton:
+                id: button1
+                text: "’©"
+                #font_size: 68
+                on_press: root.buttonClicked()
+
+            MyButton:
+                id: button2
+                text: "’‹"
+                #font_size: 68
+                on_press: root.buttonClicked2()
+
+            MyButton:
+                id: button3
+                text: "–é"
+                #font_size: 68
+                on_press: root.buttonClicked3()
+                

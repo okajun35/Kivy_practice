@@ -1,0 +1,23 @@
+#: import main main
+
+
+TextWidget: # ルートに追加
+
+<TextWidget>:
+    BoxLayout:
+    	id: input
+        orientation: 'vertical'
+        size: root.size
+        l_text:'aa'
+  
+        # ラベル
+        Label:
+            id: label1
+            font_size: 68
+            text: input.l_text
+        
+        Button:
+            id: button1
+            text: "OK"
+            font_size: 68
+            on_press: input.l_text = main.buttonClicked()  # ボタンをクリックした時

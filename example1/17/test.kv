@@ -1,0 +1,33 @@
+
+TextWidget:
+
+<TextWidget>:
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.size
+
+        Image:
+            source: './image/sample2.jpg'
+
+            
+        BoxLayout:
+            size_hint_y: 0.3
+            padding: 20,30,20, 10
+            Button:
+                id: button1
+                text: "サンプル1"
+                font_size: 30
+                on_press: root.buttonClicked()
+
+            Button:
+                id: button2
+                text: "サンプル2"
+                font_size: 30
+                on_press: root.buttonClicked2()
+
+            Button:
+                id: button3
+                text: "サンプル3"
+                font_size: 30
+                on_press: root.buttonClicked3()
+                

@@ -1,0 +1,213 @@
+#: import main main
+#: import ListAdapter kivy.adapters.listadapter.ListAdapter
+
+# 起動時に表示されるwidget
+BookSearchRoot  
+
+<BookSearchRoot>
+    # 一覧画面
+    carousel: carousel
+    booklists: booklists
+    bookinfo:  bookinfo
+
+    BoxLayout:
+        orientation: "vertical"
+        ActionBar:
+            ActionView:
+                ActionPrevious:
+                    title: "国会図書館検索"
+                    with_previous: False
+                    app_icon: "./icon/32player.png"
+
+                ActionButton:
+                    text: "一覧"
+
+                    # 一覧画面に移動する
+                    on_press: app.root.carousel.load_slide(app.root.booklists)
+                ActionButton:
+                    text: "詳細"
+
+                    # 詳細画面に移動する
+                    on_press: app.root.carousel.load_slide(app.root.bookinfo)
+
+        Carousel:
+            id: carousel
+            SearchBookForm:  # 一覧画面
+                id: booklists
+            BookInfo:           # 詳細画面
+                id: bookinfo
+
+<SearchBookForm>
+    # 一覧画面のレイアウト
+    orientation: "vertical"
+    search_input: search_box    # ①クラス変数を追加　こうすることでPython側でself.search_inputが取れる
+    search_results: search_results_list
+
+    # 検索フォーム
+    BoxLayout:
+        height: "40dp"
+        size_hint_y: None
+        TextInput:
+            id: search_box  # ②　「①」で値を渡せる
+            size_hint_x: 70
+        Button:
+            text: "検索"
+            size_hint_x: 30
+            on_press: root.search_book()
+
+    BoxLayout:
+        size_hint:1,.1
+
+        Label:
+            size_hint: .2,1
+            text: "出版年月"
+
+        Spinner:    # 年のリスト表示
+            id: year
+            size_hint: .1,1
+            halign: 'center'
+            valign: 'middle'
+            text_size: self.size
+            text:'2000'
+            values: [str(y) for y in range(2000, 2018) ]
+
+        Label:
+            size_hint: .05,1
+            text: "年"
+
+        Spinner:
+            id: month   # 月のリスト表示
+            size_hint: .05,1
+            halign: 'center'
+            valign: 'middle'
+            text_size: self.size
+            text:'01'
+            values: ['{0:02d}'.format(x)  for x in range(1,13)]
+
+        Label:
+            size_hint: .05,1
+            text: "月"
+
+        Spinner:    # 日のリスト表示
+            id: day
+            size_hint: .05,1
+            halign: 'center'
+            valign: 'middle'
+            text_size: self.size
+            text:'01'
+            values: ['{0:02d}'.format(x)  for x in range(1,30)] # 月ごとに日が変わる処理が必要だが一旦保留
+
+        Label:
+            size_hint: .05,1
+            text: "日"
+
+
+        Label:
+            size_hint: .05,1
+            text: "件数"
+
+        Spinner:    # 月ごとのサイズ
+            id: number
+            size_hint: .05,1
+            halign: 'center'
+            valign: 'middle'
+            text_size: self.size
+            text:'10'
+            values: ['1','5','10', '15', '20'] 
+
+
+    ListView:
+        id: search_results_list
+        adapter:
+            # 検索結果を一覧表示かつ項目をボタンにする
+            # data = 検索の一覧をリストで保持する
+            # CLS  = 一覧の表示形式（今回はボタンにして表示する）
+            # args_converter = 表示結果を書籍名をキーにしたリストに変換する.
+            ListAdapter(data=[], cls=main.BookButton, args_converter=main.SearchBookForm.books_args_converter)
+
+<BookButton>
+    # 検索結果をボタンにするレイアウト
+    text_size: self.size
+    halign: 'left'
+
+    text: self.book[0]  #書籍名をボタンのタイトルにする
+
+    height: "40dp"
+    size_hint_y: None
+    on_press: app.root.show_book_info(self.book)
+
+
+
+<BookInfo>
+    # 検索結果
+    book: ("","","","")
+    orientation: "vertical"
+
+
+    BoxLayout:
+        orientation: "horizontal"
+        size_hint_y: None
+        height: "40dp"
+
+
+    GridLayout:
+        cols: 2
+        rows: 4
+
+        Label:
+            text: "タイトル"
+            halign: 'left'
+            valign: 'middle'
+            size_hint_x: 20
+            text_size:self.size
+
+        Label:
+            text_size:self.size
+            halign: 'left'
+            valign: 'middle'
+            text:root.book[0]
+            size_hint_x: 80
+
+        Label:
+            text: "作者"
+            halign: 'left'
+            valign: 'middle'
+            size_hint_x: 20
+            text_size:self.size
+
+        Label:
+            text: root.book[1]
+            size_hint_x: 80
+            text_size:self.size
+            halign: 'left'
+            valign: 'middle'
+
+        Label:
+            text: "出版社"
+            halign: 'left'
+            valign: 'middle'
+            size_hint_x: 20
+            text_size:self.size
+
+        Label:
+            text: root.book[3]
+            size_hint_x: 80
+            #text: "出版社:{} ".format(root.book[3])
+            text_size:self.size
+            halign: 'left'
+            valign: 'middle'
+
+
+        Label:
+            text: "言語"
+            halign: 'left'
+            valign: 'middle'
+            size_hint_x: 20
+            text_size:self.size
+
+        Label:
+            text: root.book[2]
+            size_hint_x: 80
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'

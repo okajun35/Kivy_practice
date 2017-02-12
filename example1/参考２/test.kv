@@ -1,0 +1,28 @@
+#-*- coding: utf-8 -*-
+
+
+TextWidget: # ルートに追加
+
+<TextWidget>:
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.size
+        # ラベル
+        Label:
+            id: label1
+            font_size: 68
+            text: root.text
+        
+        BoxLayout:
+            TextInput:
+                id: text_box
+                size_hint_x: 70
+                font_size: 68
+                focus: True
+                on_text_validate: root.buttonClicked()
+            Button:
+                id: button1
+                size_hint_x: 30
+                text: "OK"
+                font_size: 68
+                on_press: root.buttonClicked()  # ボタンをクリックした時
