@@ -61,14 +61,14 @@ class Calculator1(BoxLayout):
     def del_char(self):
         ''' "<x"を押された場合の計算結果を表示  '''
 
-        self.display.text = self.root.display.text[:-1]
+        self.display.text = self.display.text[:-1]
 
         print("「<x」が押されました")
 
     def calculate(self):
         ''' "="を押された場合の計算結果を表示  '''
         try:
-            self.display.text = str(eval(self.root.display.text)) # 単一の式を評価  例：eval("5 + 10")　は15になる
+            self.display.text = str(eval(self.display.text)) # 単一の式を評価  例：eval("5 + 10")　は15になる
             self.clear_bool = True
 
             print('計算完了')
